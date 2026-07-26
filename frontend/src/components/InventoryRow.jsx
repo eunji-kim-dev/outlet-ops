@@ -53,34 +53,45 @@ function InventoryRow({ inventory, onQuantityUpdated }) {
   return (
     <tr>
       {/* 상품 기본 정보 */}
-      <td>{inventory.sku}</td>
-      <td>{inventory.productName}</td>
+      <td className="cell-tight" data-label="SKU">
+        {inventory.sku}
+      </td>
+      <td data-label="상품명">{inventory.productName}</td>
 
       {/* 재고 수량 입력과 변경 버튼 */}
-      <td>
-        <form onSubmit={handleSubmit}>
+      <td data-label="현재 수량">
+        <form className="inline-form" onSubmit={handleSubmit}>
           <input
             type="number"
             min="0"
             value={quantity}
             onChange={(event) => setQuantity(event.target.value)}
             disabled={saving}
+            aria-label={`${inventory.productName} 재고 수량`}
           />
 
-          <button type="submit" disabled={saving}>
-            {saving ? '변경 중...' : '수량 변경'}
+          <button className="btn btn-outline btn-sm" type="submit" disabled={saving}>
+            {saving ? '변경 중...' : '변경'}
           </button>
         </form>
 
         {/* 수량 변경 실패 시 오류 표시 */}
-        {error && <small>{error}</small>}
+        {error && <small className="field-error">{error}</small>}
       </td>
 
       {/* 재주문 기준 수량 */}
-      <td>{inventory.reorderPoint}</td>
+      <td className="cell-number" data-label="재주문 기준">
+        {inventory.reorderPoint}
+      </td>
 
       {/* 현재 수량과 재주문 기준을 비교한 재고 상태 */}
-      <td>{inventory.lowStock ? '부족' : '정상'}</td>
+      <td data-label="재고 상태">
+        <span
+          className={`badge ${inventory.lowStock ? 'badge-warning' : 'badge-success'}`}
+        >
+          {inventory.lowStock ? '부족' : '정상'}
+        </span>
+      </td>
     </tr>
   )
 }

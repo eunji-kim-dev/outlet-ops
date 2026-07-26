@@ -175,14 +175,16 @@ function SalesPage() {
   return (
     <main>
       {/* 판매 등록 화면 제목과 설명 */}
-      <h1>판매 등록</h1>
-      <p className="page-description">
-        매장과 상품을 선택해 판매를 등록하고 재고를 차감하는 화면임
-      </p>
+      <header className="page-header">
+        <h1>판매 등록</h1>
+        <p className="page-description">
+          매장과 상품을 선택해 판매를 등록하고 재고를 차감하는 화면임
+        </p>
+      </header>
 
       {/* 판매 정보 입력 영역 */}
-      <section className="form-card">
-        <form className="sale-form" onSubmit={handleSubmit}>
+      <section className="card">
+        <form className="form-row" onSubmit={handleSubmit}>
           {/* 판매가 발생한 매장 선택 */}
           <div className="field">
             <label htmlFor="sale-store">매장</label>
@@ -255,45 +257,49 @@ function SalesPage() {
           </div>
 
           {/* 판매 등록 요청 버튼 */}
-          <button
-            className="primary-button"
-            type="submit"
-            disabled={submitting}
-          >
-            {submitting ? '등록 중...' : '판매 등록'}
-          </button>
+          <div className="field field-action">
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={submitting}
+            >
+              {submitting ? '등록 중...' : '판매 등록'}
+            </button>
+          </div>
         </form>
 
         {/* 선택 상품의 현재 재고 표시 */}
         {selectedInventory && (
-          <p className="stock-hint">
+          <p className="hint">
             현재 재고: {selectedInventory.quantity}개
           </p>
         )}
 
         {/* 선택한 매장의 재고 조회 중 표시 */}
         {inventoryLoading && (
-          <p className="info-message">상품 재고를 불러오는 중...</p>
+          <p className="loading-note hint">상품 재고를 불러오는 중...</p>
         )}
 
         {/* 선택한 매장에 등록된 재고가 없는 경우 표시 */}
         {selectedStoreId &&
           !inventoryLoading &&
           inventories.length === 0 && (
-            <p className="info-message">
+            <p className="hint">
               이 매장에 등록된 상품 재고가 없습니다.
             </p>
           )}
       </section>
 
       {/* 요청 처리 중 발생한 오류 표시 */}
-      {error && <p className="error-message">{error}</p>}
+      {error && <p className="alert alert-error">{error}</p>}
 
       {/* 판매 등록 성공 결과 표시 */}
       {saleResult && (
-        <section className="result-card">
-          <h2>판매 등록 완료</h2>
-          <dl>
+        <section className="card result-card">
+          <h2 className="card-title">판매 등록 완료</h2>
+
+          {/* 등록 결과의 핵심 값만 요약해서 표시 */}
+          <dl className="summary-list">
             <div>
               <dt>판매 ID</dt>
               <dd>{saleResult.id}</dd>

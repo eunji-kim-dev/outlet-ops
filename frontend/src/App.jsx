@@ -14,44 +14,47 @@ import DashboardPage from './pages/DashboardPage.jsx'
 // 애플리케이션의 전체 화면 구조와 주소 설정
 function App() {
   return (
-    // 메뉴와 Routes를 하나로 묶기 위한 Fragment
-    <>
-      {/* 모든 페이지 위에 공통 메뉴 출력 */}
+    // 왼쪽 메뉴와 오른쪽 본문을 나누는 전체 레이아웃
+    <div className="app-shell">
+      {/* 모든 페이지 옆에 공통 메뉴 출력 */}
       <Navigation />
 
-      {/* 브라우저 주소에 맞는 페이지 출력 */}
-      <Routes>
-        {/* 기본 주소 접속 시 재고 관리 주소로 이동 */}
-        <Route
-          path="/"
-          element={<Navigate to="/inventory" replace />}
-        />
+      {/* 선택한 메뉴의 페이지가 표시되는 본문 영역 */}
+      <div className="app-content">
+        {/* 브라우저 주소에 맞는 페이지 출력 */}
+        <Routes>
+          {/* 기본 주소 접속 시 재고 관리 주소로 이동 */}
+          <Route
+            path="/"
+            element={<Navigate to="/inventory" replace />}
+          />
 
-        {/* 재고 관리 화면 연결 */}
-        <Route
-          path="/inventory"
-          element={<InventoryPage />}
-        />
+          {/* 재고 관리 화면 연결 */}
+          <Route
+            path="/inventory"
+            element={<InventoryPage />}
+          />
 
-        {/* 판매 등록 화면 연결 */}
-        <Route
-          path="/sales"
-          element={<SalesPage />}
-        />
+          {/* 판매 등록 화면 연결 */}
+          <Route
+            path="/sales"
+            element={<SalesPage />}
+          />
 
-        {/* 발주 관리 화면 연결 */}
-        <Route
-          path="/purchase-orders"
-          element={<PurchaseOrderPage />}
-        />
+          {/* 발주 관리 화면 연결 */}
+          <Route
+            path="/purchase-orders"
+            element={<PurchaseOrderPage />}
+          />
 
-        {/* 매출 대시보드 화면 연결 */}
-        <Route
-          path="/dashboard"
-          element={<DashboardPage />}
-        />
-      </Routes>
-    </>
+          {/* 매출 대시보드 화면 연결 */}
+          <Route
+            path="/dashboard"
+            element={<DashboardPage />}
+          />
+        </Routes>
+      </div>
+    </div>
   )
 }
 
