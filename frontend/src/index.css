@@ -61,3 +61,155 @@ main {
 h1 {
   margin-top: 0;
 }
+
+/* 페이지 제목 아래의 설명 문구 */
+.page-description {
+  margin-bottom: 24px;
+  color: #6b7280;
+}
+
+/* 입력 폼을 감싸는 카드 영역 */
+.form-card {
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background-color: #f9fafb;
+}
+
+/* 판매 등록 입력 항목 배치 */
+.sale-form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  gap: 16px;
+  align-items: end;
+}
+
+/* 라벨과 입력 요소의 세로 배치 */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 입력 항목 이름 */
+.field label {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* 입력창과 선택창의 공통 모양 */
+input,
+select {
+  min-height: 42px;
+  padding: 9px 11px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #111827;
+  font: inherit;
+}
+
+/* 선택 또는 입력 중인 요소 강조 */
+input:focus,
+select:focus {
+  border-color: #2563eb;
+  outline: 3px solid rgb(37 99 235 / 15%);
+}
+
+/* 비활성화된 입력 요소 */
+input:disabled,
+select:disabled,
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 주요 작업 버튼 */
+.primary-button {
+  min-height: 42px;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 6px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* 주요 작업 버튼 마우스 오버 */
+.primary-button:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+/* 선택 상품의 재고 안내 */
+.stock-hint {
+  margin: 16px 0 0;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+/* 일반 안내 메시지 */
+.info-message {
+  margin: 16px 0 0;
+  color: #4b5563;
+}
+
+/* 오류 메시지 */
+.error-message {
+  padding: 12px 14px;
+  border-radius: 6px;
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* 판매 등록 결과 카드 */
+.result-card {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  background-color: #f0fdf4;
+}
+
+/* 판매 등록 결과 제목 */
+.result-card h2 {
+  margin-top: 0;
+  color: #166534;
+}
+
+/* 판매 등록 결과 목록 */
+.result-card dl {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 0;
+}
+
+/* 판매 등록 결과의 이름과 값 배치 */
+.result-card dl div {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 12px;
+}
+
+/* 판매 등록 결과 항목 이름 */
+.result-card dt {
+  color: #4b5563;
+  font-weight: 700;
+}
+
+/* 판매 등록 결과 항목 값 */
+.result-card dd {
+  margin: 0;
+}
+
+/* 작은 화면에서 판매 폼을 한 줄씩 배치 */
+@media (max-width: 800px) {
+  .sale-form {
+    grid-template-columns: 1fr;
+  }
+
+  nav {
+    flex-wrap: wrap;
+  }
+}
