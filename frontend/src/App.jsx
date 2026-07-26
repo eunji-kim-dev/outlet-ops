@@ -1,122 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+// 주소별 화면 설정에 필요한 컴포넌트 가져옴
+import { Navigate, Route, Routes } from 'react-router-dom'
 
+// 모든 화면에서 사용할 공통 메뉴 가져옴
+import Navigation from './components/Navigation.jsx'
+
+// 주소별로 표시할 페이지 컴포넌트 가져옴
+import InventoryPage from './pages/InventoryPage.jsx'
+import SalesPage from './pages/SalesPage.jsx'
+import PurchaseOrderPage from './pages/PurchaseOrderPage.jsx'
+import DashboardPage from './pages/DashboardPage.jsx'
+
+
+// 애플리케이션의 전체 화면 구조와 주소 설정
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
+    // 메뉴와 Routes를 하나로 묶기 위한 Fragment
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      {/* 모든 페이지 위에 공통 메뉴 출력 */}
+      <Navigation />
 
-      <div className="ticks"></div>
+      {/* 브라우저 주소에 맞는 페이지 출력 */}
+      <Routes>
+        {/* 기본 주소 접속 시 재고 관리 주소로 이동 */}
+        <Route
+          path="/"
+          element={<Navigate to="/inventory" replace />}
+        />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        {/* 재고 관리 화면 연결 */}
+        <Route
+          path="/inventory"
+          element={<InventoryPage />}
+        />
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+        {/* 판매 등록 화면 연결 */}
+        <Route
+          path="/sales"
+          element={<SalesPage />}
+        />
+
+        {/* 발주 관리 화면 연결 */}
+        <Route
+          path="/purchase-orders"
+          element={<PurchaseOrderPage />}
+        />
+
+        {/* 매출 대시보드 화면 연결 */}
+        <Route
+          path="/dashboard"
+          element={<DashboardPage />}
+        />
+      </Routes>
     </>
   )
 }
 
+// 다른 파일에서 App 컴포넌트를 사용할 수 있도록 내보냄
 export default App
