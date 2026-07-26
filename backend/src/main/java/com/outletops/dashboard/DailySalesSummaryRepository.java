@@ -25,4 +25,20 @@ public interface DailySalesSummaryRepository
     List<DailySalesSummary> findBySalesDateOrderByStore_NameAsc(
             LocalDate salesDate
     );
+
+    // 지정 기간의 모든 매장 집계 결과 조회
+    @EntityGraph(attributePaths = "store")
+    List<DailySalesSummary> findBySalesDateBetweenOrderBySalesDateAsc(
+            LocalDate startDate,
+            LocalDate endDate
+    );
+
+    // 지정 기간과 특정 매장의 집계 결과 조회
+    @EntityGraph(attributePaths = "store")
+    List<DailySalesSummary>
+    findByStore_IdAndSalesDateBetweenOrderBySalesDateAsc(
+            Long storeId,
+            LocalDate startDate,
+            LocalDate endDate
+    );
 }

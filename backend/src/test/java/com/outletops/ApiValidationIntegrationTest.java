@@ -10,6 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 // Controller에 전달된 잘못된 JSON 요청이 HTTP 400으로 차단되는지 검증
@@ -103,6 +104,16 @@ class ApiValidationIntegrationTest {
                                   ]
                                 }
                                 """)
+        ).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("대시보드 종료일이 시작일보다 빠르면 400 오류가 발생한다")
+    void rejectReversedDashboardPeriod() throws Exception {
+        mockMvc.perform(
+                get("/api/dashboard/sales")
+                        .param("startDate", "2026-07-26")
+                        .param("endDate", "2026-07-25")
         ).andExpect(status().isBadRequest());
     }
 }

@@ -13,6 +13,7 @@ import com.outletops.store.Store;
 import com.outletops.store.StoreRepository;
 import java.math.BigDecimal;
 import java.util.List;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -74,6 +75,12 @@ class SaleServiceIntegrationTest {
         inventory = inventoryRepository.save(
                 new Inventory(store, product, 10, 2)
         );
+    }
+
+    // 트랜잭션 롤백 테스트가 다른 테스트 클래스에 데이터를 남기지 않도록 정리
+    @AfterEach
+    void tearDown() {
+        clearDatabase();
     }
 
     @Test
