@@ -1,3 +1,6 @@
+// 실행 환경에 맞는 백엔드 전체 주소 생성 함수 가져옴
+import { apiUrl } from './apiConfig.js'
+
 // 기간과 매장 조건에 맞는 매출 대시보드 조회
 export async function fetchSalesDashboard(
   startDate,
@@ -17,7 +20,7 @@ export async function fetchSalesDashboard(
 
   // 완성된 조회 조건을 대시보드 API에 전달
   const response = await fetch(
-    `/api/dashboard/sales?${searchParams.toString()}`,
+    apiUrl(`/api/dashboard/sales?${searchParams.toString()}`),
   )
 
   // 200번대 응답이 아닌 경우 오류 처리

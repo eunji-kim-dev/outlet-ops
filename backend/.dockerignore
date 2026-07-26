@@ -1,0 +1,11 @@
+# 로컬 Gradle 캐시와 빌드 결과 제외
+.gradle
+build
+
+# 로컬 전용 비밀번호 파일 제외
+.env.properties
+
+# IDE 설정과 Git 데이터 제외
+.idea
+.vscode
+.git

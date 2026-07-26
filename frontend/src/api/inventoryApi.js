@@ -1,7 +1,10 @@
+// 실행 환경에 맞는 백엔드 전체 주소 생성 함수 가져옴
+import { apiUrl } from './apiConfig.js'
+
 // 백엔드에서 전체 매장 목록 조회
 export async function fetchStores() {
   // Vite 프록시를 통한 매장 조회 요청
-  const response = await fetch('/api/stores')
+  const response = await fetch(apiUrl('/api/stores'))
 
   // 200번대 응답이 아닌 경우 오류 처리
   if (!response.ok) {
@@ -15,7 +18,9 @@ export async function fetchStores() {
 // 선택한 매장의 재고 목록 조회
 export async function fetchInventories(storeId) {
   // 쿼리 파라미터에 매장 ID를 넣어 재고 조회 요청
-  const response = await fetch(`/api/inventories?storeId=${storeId}`)
+  const response = await fetch(
+    apiUrl(`/api/inventories?storeId=${storeId}`),
+  )
 
   // 200번대 응답이 아닌 경우 오류 처리
   if (!response.ok) {
@@ -30,7 +35,7 @@ export async function fetchInventories(storeId) {
 export async function updateInventoryQuantity(inventoryId, quantity) {
   // 재고 ID를 주소에 포함한 수량 변경 요청
   const response = await fetch(
-    `/api/inventories/${inventoryId}/quantity`,
+    apiUrl(`/api/inventories/${inventoryId}/quantity`),
     {
       // 일부 데이터만 변경하는 PATCH 방식 사용
       method: 'PATCH',

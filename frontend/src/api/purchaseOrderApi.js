@@ -1,8 +1,11 @@
+// 실행 환경에 맞는 백엔드 전체 주소 생성 함수 가져옴
+import { apiUrl } from './apiConfig.js'
+
 // 매장별 발주 목록 조회
 export async function fetchPurchaseOrders(storeId) {
   // 선택한 매장 ID를 쿼리 파라미터로 전달
   const response = await fetch(
-    `/api/purchase-orders?storeId=${storeId}`,
+    apiUrl(`/api/purchase-orders?storeId=${storeId}`),
   )
 
   // 200번대 응답이 아닌 경우 오류 처리
@@ -22,7 +25,7 @@ export async function createPurchaseOrder(
   unitCost,
 ) {
   // 발주 데이터를 백엔드에 전달
-  const response = await fetch('/api/purchase-orders', {
+  const response = await fetch(apiUrl('/api/purchase-orders'), {
     // 새로운 발주를 생성하는 POST 방식 사용
     method: 'POST',
 
@@ -57,7 +60,7 @@ export async function createPurchaseOrder(
 export async function receivePurchaseOrder(purchaseOrderId) {
   // 발주 ID를 주소에 포함한 입고 처리 요청
   const response = await fetch(
-    `/api/purchase-orders/${purchaseOrderId}/receive`,
+    apiUrl(`/api/purchase-orders/${purchaseOrderId}/receive`),
     {
       // 발주 상태와 재고 수량을 변경하는 PATCH 방식 사용
       method: 'PATCH',
@@ -77,7 +80,7 @@ export async function receivePurchaseOrder(purchaseOrderId) {
 export async function cancelPurchaseOrder(purchaseOrderId) {
   // 발주 ID를 주소에 포함한 취소 처리 요청
   const response = await fetch(
-    `/api/purchase-orders/${purchaseOrderId}/cancel`,
+    apiUrl(`/api/purchase-orders/${purchaseOrderId}/cancel`),
     {
       // 발주 상태를 변경하는 PATCH 방식 사용
       method: 'PATCH',

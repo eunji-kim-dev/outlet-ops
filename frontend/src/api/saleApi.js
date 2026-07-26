@@ -1,7 +1,10 @@
+// 실행 환경에 맞는 백엔드 전체 주소 생성 함수 가져옴
+import { apiUrl } from './apiConfig.js'
+
 // 판매 등록 요청
 export async function createSale(storeId, productId, quantity) {
   // 판매 데이터를 백엔드에 전달
-  const response = await fetch('/api/sales', {
+  const response = await fetch(apiUrl('/api/sales'), {
     // 새로운 판매 데이터를 생성하는 POST 방식 사용
     method: 'POST',
 
