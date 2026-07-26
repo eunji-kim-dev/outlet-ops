@@ -5,11 +5,20 @@
   /* 브라우저 기본 위젯도 밝은/어두운 테마를 따라가게 함 */
   color-scheme: light dark;
 
-  /* 핵심 강조색 */
-  --brand: #4f46e5;
-  --brand-strong: #4338ca;
-  --brand-soft: #eef2ff;
-  --brand-ring: rgb(79 70 229 / 18%);
+  /* 핵심 강조색 — 파랑에서 청록으로 이어지는 그라데이션 */
+  --brand: #2563eb;
+  --brand-strong: #1d4ed8;
+  --brand-soft: #eff6ff;
+  --brand-ring: rgb(37 99 235 / 18%);
+  --brand-from: #2563eb;
+  --brand-to: #06b6d4;
+  --brand-gradient: linear-gradient(135deg, var(--brand-from), var(--brand-to));
+  --brand-gradient-hover: linear-gradient(
+    135deg,
+    var(--brand-strong),
+    var(--brand-to)
+  );
+  --brand-shadow: 0 6px 16px rgb(37 99 235 / 25%);
 
   /* 배경과 표면 */
   --page-bg: #f8fafc;
@@ -27,9 +36,9 @@
   --border-2: #cbd5e1;
 
   /* 상태 색 — 배경·글자·테두리를 한 묶음으로 관리 */
-  --info-bg: #eef2ff;
-  --info-fg: #4338ca;
-  --info-bd: #c7d2fe;
+  --info-bg: #eff6ff;
+  --info-fg: #1d4ed8;
+  --info-bd: #bfdbfe;
 
   --ok-bg: #f0fdf4;
   --ok-fg: #15803d;
@@ -58,10 +67,13 @@
 /* 사용자의 운영체제가 어두운 테마일 때 색만 교체 */
 @media (prefers-color-scheme: dark) {
   :root {
-    --brand: #6366f1;
-    --brand-strong: #818cf8;
-    --brand-soft: #1e1b4b;
-    --brand-ring: rgb(129 140 248 / 25%);
+    --brand: #60a5fa;
+    --brand-strong: #93c5fd;
+    --brand-soft: #0f1f38;
+    --brand-ring: rgb(96 165 250 / 25%);
+    --brand-from: #3b82f6;
+    --brand-to: #22d3ee;
+    --brand-shadow: 0 6px 20px rgb(56 189 248 / 25%);
 
     --page-bg: #020617;
     --surface: #0f172a;
@@ -75,9 +87,9 @@
     --border: #1e293b;
     --border-2: #334155;
 
-    --info-bg: #1e1b4b;
-    --info-fg: #a5b4fc;
-    --info-bd: #312e81;
+    --info-bg: #0f1f38;
+    --info-fg: #93c5fd;
+    --info-bd: #1e3a5f;
 
     --ok-bg: #052e16;
     --ok-fg: #4ade80;
@@ -206,7 +218,7 @@ main {
   height: 32px;
   flex-shrink: 0;
   border-radius: 8px;
-  background-color: var(--brand);
+  background-image: var(--brand-gradient);
   color: #ffffff;
   font-size: 14px;
   font-weight: 800;
@@ -282,7 +294,7 @@ main {
   bottom: 8px;
   width: 3px;
   border-radius: 0 3px 3px 0;
-  background-color: var(--brand);
+  background-image: var(--brand-gradient);
 }
 
 /* 메뉴 아이콘 크기 고정 */
@@ -461,13 +473,14 @@ button:disabled {
 
 /* 화면의 주요 작업 버튼 */
 .btn-primary {
-  background-color: var(--brand);
+  background-image: var(--brand-gradient);
   color: #ffffff;
+  box-shadow: var(--brand-shadow);
 }
 
 /* 주요 작업 버튼 마우스 오버 */
 .btn-primary:hover:not(:disabled) {
-  background-color: var(--brand-strong);
+  background-image: var(--brand-gradient-hover);
 }
 
 /* 보조 작업 버튼 */
@@ -809,10 +822,61 @@ tbody tr:hover {
 /* 지표 카드의 값 */
 .stat-value {
   margin-top: 8px;
-  color: var(--text-3);
+  color: var(--text);
   font-size: 26px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+}
+
+/* 총매출 지표를 그라데이션 글자색으로 강조 */
+.stat-value-brand {
+  background-image: var(--brand-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* 대시보드 지표 카드의 세로 정렬 */
+.stat-card {
+  min-width: 0;
+}
+
+/* 대시보드 필터가 지나치게 넓어지는 것 방지 */
+.dashboard-filter {
+  grid-template-columns: repeat(3, minmax(150px, 1fr)) auto;
+}
+
+/* 차트 제목과 추가 정보를 배치하는 영역 */
+.chart-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* 차트 제목 아래 설명 */
+.chart-header p {
+  margin: -10px 0 0;
+  color: var(--text-3);
+  font-size: 13px;
+}
+
+/* 반응형 차트의 기준 높이 */
+.chart-container {
+  width: 100%;
+  height: 320px;
+}
+
+/* 매장 비교 차트의 작은 기준 높이 */
+.chart-container-small {
+  height: 280px;
+}
+
+/* Recharts 축 글자 크기 통일 */
+.chart-container .recharts-cartesian-axis-tick-value {
+  fill: var(--text-3);
+  font-size: 12px;
 }
 
 /* ─────────────────────────────────────────────
@@ -868,6 +932,14 @@ tbody tr:hover {
 
 /* 모바일에서는 표를 가로 스크롤 대신 카드 목록으로 변경 */
 @media (max-width: 720px) {
+  .dashboard-filter {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-container {
+    height: 270px;
+  }
+
   .table-wrapper {
     overflow: visible;
     border: 0;

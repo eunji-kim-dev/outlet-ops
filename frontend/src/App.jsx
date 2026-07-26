@@ -1,3 +1,6 @@
+// 대시보드 지연 로딩에 필요한 React 기능 가져옴
+import { lazy, Suspense } from 'react'
+
 // 주소별 화면 설정에 필요한 컴포넌트 가져옴
 import { Navigate, Route, Routes } from 'react-router-dom'
 
@@ -8,8 +11,9 @@ import Navigation from './components/Navigation.jsx'
 import InventoryPage from './pages/InventoryPage.jsx'
 import SalesPage from './pages/SalesPage.jsx'
 import PurchaseOrderPage from './pages/PurchaseOrderPage.jsx'
-import DashboardPage from './pages/DashboardPage.jsx'
 
+// Recharts가 포함된 대시보드를 해당 메뉴 접속 시점에 불러옴
+const DashboardPage = lazy(() => import('./pages/DashboardPage.jsx'))
 
 // 애플리케이션의 전체 화면 구조와 주소 설정
 function App() {
@@ -50,7 +54,18 @@ function App() {
           {/* 매출 대시보드 화면 연결 */}
           <Route
             path="/dashboard"
-            element={<DashboardPage />}
+            element={
+              // 대시보드 파일을 불러오는 동안 안내 문구 표시
+              <Suspense
+                fallback={
+                  <p className="loading-note">
+                    대시보드 화면을 불러오는 중...
+                  </p>
+                }
+              >
+                <DashboardPage />
+              </Suspense>
+            }
           />
         </Routes>
       </div>
